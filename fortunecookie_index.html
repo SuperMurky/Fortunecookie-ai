@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fortunecookie.ai</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    img {
+      width: 150px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    img:hover {
+      transform: scale(1.1);
+    }
+    #fortune {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      text-align: center;
+      display: none;
+    }
+    #paywall {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      display: none;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: gold;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <img src="https://www.pngegg.com/en/png-ebtzu" alt="Fortune Cookie" id="cookie" />
+  <div id="prompt">Crack to reveal your fortune</div>
+
+  <div id="paywall">
+    <p>Pay £0.99 to crack the cookie and reveal your fortune.</p>
+    <button onclick="revealFortune()">Pay Now</button>
+  </div>
+
+  <div id="fortune"></div>
+
+  <script>
+    const cookie = document.getElementById("cookie");
+    const paywall = document.getElementById("paywall");
+    const fortune = document.getElementById("fortune");
+    const prompt = document.getElementById("prompt");
+
+    const fortunes = [
+      "You will find something you weren’t looking for.",
+      "A new opportunity is approaching — stay open.",
+      "Your curiosity will lead to unexpected rewards.",
+      "Someone close to you has a secret gift for you.",
+      "Now is the time to trust your instincts."
+    ];
+
+    cookie.addEventListener("click", () => {
+      cookie.style.pointerEvents = "none";
+      prompt.style.display = "none";
+      paywall.style.display = "block";
+    });
+
+    function revealFortune() {
+      paywall.style.display = "none";
+      const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+      fortune.textContent = randomFortune;
+      fortune.style.display = "block";
+    }
+  </script>
+</body>
+</html>
