@@ -50,6 +50,13 @@
 <body>
   <audio id="bgm" src="nowhere.mp3" autoplay loop></audio>
 
+  cookie.addEventListener("click", () => {
+  document.getElementById("bgm").play(); // start music after click
+  cookie.style.pointerEvents = "none";
+  prompt.style.display = "none";
+  paywall.style.display = "block";
+});
+
 
   <img src="Untitled.png" style="width:150px; position:absolute; top:10px; left:10px;">
 
