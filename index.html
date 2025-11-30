@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>fortunecookie.ai</title>
+
   <style>
     body {
       margin: 0;
@@ -16,118 +17,131 @@
       height: 100vh;
       flex-direction: column;
     }
-    img {
-      width: 150px;
+
+    #cookie {
+      width: 180px;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: transform 0.25s ease;
     }
-    img:hover {
-      transform: scale(1.1);
-    }
+    #cookie:hover { transform: scale(1.1); }
+
     #fortune {
       margin-top: 20px;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       text-align: center;
       display: none;
     }
+
     #paywall {
       background: #111;
-      padding: 20px;
+      padding: 18px;
       border-radius: 10px;
       margin-top: 20px;
       display: none;
     }
+
     button {
-      padding: 10px 20px;
+      padding: 10px 22px;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       background: gold;
       font-weight: bold;
       cursor: pointer;
     }
+
+    #logo {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 120px;
+    }
   </style>
 </head>
+
+
 <body>
+
+  <!-- background music -->
   <audio id="bgm" src="nowhere.mp3" autoplay loop></audio>
 
-  
-  <img src="Untitled.png" style="width:150px; position:absolute; top:10px; left:10px;">
+  <!-- top-left small logo -->
+  <img id="logo" src="Untitled.png">
 
-
-
-</body>
-
-  
-  <img src="Fortune_cookie.png" alt="Fortune Cookie" id="cookie" />
+  <!-- main cookie -->
+  <img src="Fortune_cookie.png" alt="cookie" id="cookie">
   <div id="prompt">Crack to reveal your fortune</div>
 
+  <!-- paywall -->
   <div id="paywall">
     <p>Pay £0.99 to crack the cookie and reveal your fortune.</p>
     <button onclick="revealFortune()">Pay Now</button>
   </div>
 
+  <!-- fortune output -->
   <div id="fortune"></div>
 
-  <script>
-    const cookie = document.getElementById("cookie");
-    const paywall = document.getElementById("paywall");
-    const fortune = document.getElementById("fortune");
-    const prompt = document.getElementById("prompt");
 
-const fortunes = [
-const fortunes = [
-  "You will soon find a sock with only one wet toe. You will know exactly who is responsible.",
-  "The 4th cupboard you open this week will contain something you forgot you owned — and something you don't remember buying.",
-  "A sentence you speak on Wednesday at 2:13 PM will echo in someone's mind for years.",
-  "You will dream of a blue staircase, and two days later you’ll see it — but not where you expect.",
-  "A receipt from 2017 will reveal a secret you didn’t know you were keeping.",
-  "You will recognise someone by the sound of their breathing, not their face.",
-  "You will eat something familiar that tastes faintly of nostalgia and metal.",
-  "The number 28 will bother you soon — not aggressively, just persistently.",
-  "Your shadow will look slightly wrong one evening, but only you will notice.",
-  "A stranger will laugh at something you haven’t said yet.",
-  "You will smell rain where there is no rain and remember a place you've never been.",
-  "A chair will creak at the wrong time, and you will understand its warning.",
-  "Your reflection will blink slower than you do for exactly one moment.",
-  "You will misplace an object and find it somewhere you swear you never entered.",
-  "You will hear footsteps that stop when you stop. Do not turn around yet.",
-  "You will see a bird stare at you. It will not be the one to look away first.",
-  "The next time you yawn, someone will copy you — even if they cannot see you.",
-  "You will remember a word you have not heard in ten years. It will feel significant.",
-  "You will wake up knowing something you never learned.",
-  "A familiar song will sound slightly wrong, as if sung by someone using your voice.",
-  "The moon will seem closer one night. You will feel watched, but gently.",
-  "When you next use a pen, it will write a word you didn’t intend.",
-  "A piece of paper will fold itself in your mind before you fold it in your hand.",
-  "You will read something soon that feels like you wrote it — from the future.",
-  "A door will close by itself, slowly and with certainty. Consider what it ended.",
-  "You may catch yourself remembering tomorrow before it happens — do not correct it.",
-  "You will soon notice a cloud shaped exactly like a thought you're avoiding.",
-  "There will be a moment where the world feels paused, and only you will move.",
-  "A forgotten password will unlock something unrelated, but meaningful.",
-  "Listen closely: one silence in your week will not be empty.",
-  "Your future self is trying to contact you in déjà vu — pay attention to the second time.",
-  "You will see your name somewhere it shouldn't be, written in handwriting you almost recognise.",
-  "Reality will glitch subtly — a light flicker, an object swap, a word repeating. You will understand its tone.",
-  "Someone will say something mundane, but it will feel like a prophecy. They will not realise they said it.",
-  "On an ordinary day, the world will align so perfectly that you will feel the gears behind it."
-];
+<script>
+  const cookie = document.getElementById("cookie");
+  const fortune = document.getElementById("fortune");
+  const paywall = document.getElementById("paywall");
+  const prompt = document.getElementById("prompt");
 
-];
+  // Your Weird Fortunes (fixed)
+  const fortunes = [
+    "You will soon find a sock with only one wet toe. You will know exactly who is responsible.",
+    "The 4th cupboard you open this week will contain something you forgot you owned — and something you don't remember buying.",
+    "A sentence you speak on Wednesday at 2:13 PM will echo in someone’s mind for years.",
+    "You will dream of a blue staircase, and two days later you’ll see it — but not where you expect.",
+    "A receipt from 2017 will reveal a secret you didn’t know you were keeping.",
+    "You will recognise someone by the sound of their breathing, not their face.",
+    "You will eat something familiar that tastes faintly of nostalgia and metal.",
+    "The number 28 will bother you soon — not aggressively, just persistently.",
+    "Your shadow will look slightly wrong one evening, but only you will notice.",
+    "A stranger will laugh at something you haven’t said yet.",
+    "You will smell rain where there is no rain and remember a place you've never been.",
+    "A chair will creak at the wrong time, and you will understand its warning.",
+    "Your reflection will blink slower than you do for exactly one moment.",
+    "You will misplace an object and find it somewhere you swear you never entered.",
+    "You will hear footsteps that stop when you stop. Do not turn around yet.",
+    "You will see a bird stare at you. It will not be the one to look away first.",
+    "The next time you yawn, someone will copy you — even if they cannot see you.",
+    "You will remember a word you have not heard in ten years. It will feel significant.",
+    "You will wake up knowing something you never learned.",
+    "A familiar song will sound slightly wrong, as if sung by someone using your voice.",
+    "The moon will seem closer one night. You will feel watched, but gently.",
+    "When you next use a pen, it will write a word you didn’t intend.",
+    "A piece of paper will fold itself in your mind before you fold it in your hand.",
+    "You will read something soon that feels like you wrote it — from the future.",
+    "A door will close by itself, slowly and with certainty. Consider what it ended.",
+    "You may catch yourself remembering tomorrow before it happens — do not correct it.",
+    "You will soon notice a cloud shaped exactly like a thought you're avoiding.",
+    "There will be a moment where the world feels paused, and only you will move.",
+    "A forgotten password will unlock something unrelated, but meaningful.",
+    "Listen closely: one silence in your week will not be empty.",
+    "Your future self is trying to contact you in déjà vu — pay attention to the second time.",
+    "You will see your name somewhere it shouldn't be, written in handwriting you almost recognise.",
+    "Reality will glitch subtly — a light flicker, an object swap, a word repeating. You will understand its tone.",
+    "Someone will say something mundane, but it will feel like a prophecy. They will not realise they said it.",
+    "On an ordinary day, the world will align so perfectly that you will feel the gears behind it."
+  ];
 
+  cookie.addEventListener("click", () => {
+    cookie.style.pointerEvents = "none";
+    prompt.style.display = "none";
+    paywall.style.display = "block";
+  });
 
-    cookie.addEventListener("click", () => {
-      cookie.style.pointerEvents = "none";
-      prompt.style.display = "none";
-      paywall.style.display = "block";
-    });
+  function revealFortune() {
+    paywall.style.display = "none";
+    const crack = new Audio("crack.mp3");
+    crack.play();
+    cookie.style.display = "none";
+    fortune.textContent = fortunes[Math.floor(Math.random() * fortunes.length)];
+    fortune.style.display = "block";
+  }
+</script>
 
-    function revealFortune() {
-      paywall.style.display = "none";
-      const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-      fortune.textContent = randomFortune;
-      fortune.style.display = "block";
-    }
-  </script>
 </body>
 </html>
+
